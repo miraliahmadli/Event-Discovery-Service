@@ -5,6 +5,7 @@
   <title>
     <%= username %>'s Profile - Event Management System</title>
   <%- include partials/html-head %>
+      <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 
 <body class="booked">
@@ -30,26 +31,35 @@
           </div>
 
           <div id="wrapper">
-            <button id="location-button">Get Your Location</button>
-            <div id="output"></div>
+            <button id="location-button" onclick="showLocation()">Get Your Location</button>
+            <div id="map"></div>
           </div>
-        
           <script>
-              $('#location-button').click(function(){
+              function showLocation(){
                 console.log("OK");
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(function(position){
                       console.log(position);
-                      $.get( "http://maps.googleapis.com/maps/api/geocode/json?latlng="+ position.coords.latitude + "," + position.coords.longitude +"&sensor=false", function(data) {
-                        console.log(data);
-                      })
-                      var img = new Image();
-                      img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + position.coords.latitude + "," + position.coords.longitude + "&zoom=13&size=800x400&sensor=false";
-                      $('#output').html(img);
+
+                      let map = new google.maps.Map(document.getElementById('map'), {
+                          zoom: 16,
+                          center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+                          scrollwheel: true,
+                          mapTypeId: google.maps.MapTypeId.ROADMAP
+                      });
+                      
+                      let marker = new google.maps.Marker({
+                          position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+                          map: map
+                      });
+
+                      google.maps.event.addDomListener(window, 'load', initialize);
                     });
-                }
-              });
-          </script>
+                };
+              }
+              // });
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=APIKEY&callback=initMap" async defer></script>
         </div>
       </div>
     </main>
