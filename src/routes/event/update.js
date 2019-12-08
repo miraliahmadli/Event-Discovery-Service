@@ -2,10 +2,10 @@ import express from 'express';
 import Event from '../../models/event';
 import User from '../../models/user';
 import { parseEvent } from '../common/eventParser';
-import { isStaff } from '../common/authCheck';
+import { isCreator } from '../common/authCheck';
 const router = express.Router();
 
-router.get('/id/:eventID/', isStaff, (req, res) => {
+router.get('/id/:eventID/', isCreator, (req, res) => {
   res.locals.options.page = 'manage-events';
   Event.findOne({ eventId: req.params.eventID }).then(result => {
     if (!result) {
@@ -24,8 +24,8 @@ router.get('/id/:eventID/', isStaff, (req, res) => {
   });
 });
 
-router.put('/id/:eventID/', isStaff, async (req, res) => {
-  let { eventName, summary, address, startDate, endDate, fullDesc, capacity, promoCode, discount, price } = req.body;
+router.put('/id/:eventID/', isCreator, async (req, res) => {
+  let { eventName, summary, address, startDate, endDate, fullDesc, capacity, tags, promoCode, discount, price } = req.body;
   startDate = new Date(startDate);
   endDate = new Date(endDate);
 
@@ -43,6 +43,7 @@ router.put('/id/:eventID/', isStaff, async (req, res) => {
     endDate,
     fullDesc,
     capacity,
+    tags,
     promoCode,
     discount,
     price,

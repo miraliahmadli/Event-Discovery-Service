@@ -10,8 +10,8 @@ export function isSignedIn(req, res, next) {
   });
 }
 
-export function isStaff(req, res, next) {
-  if (res.locals.options.type === 'staff') return next();
+export function isCreator(req, res, next) {
+  if (res.locals.options.type === 'event-creator') return next();
   // Not authorized
   return res.status(err.status).render('error_views/auth-error', {
     error: err.message,

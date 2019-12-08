@@ -4,7 +4,7 @@ import User from '../../models/user';
 const router = express.Router();
 
 router.use(
-  ['/register', '/student-register', '/staff-register'], (req, res, next) => {
+  ['/register', '/seeker-register', '/creator-register'], (req, res, next) => {
     res.locals.options.page = 'register';
     next();
   });
@@ -15,14 +15,14 @@ router.get('/register', (req, res) => {
 });
 
 // student-register form
-router.get('/student-register', (req, res) => {
-  res.locals.options.register_type = 'Student';
+router.get('/seeker-register', (req, res) => {
+  res.locals.options.register_type = 'Event Seeker';
   res.render('register', res.locals.options);
 });
 
-// staff-register form
-router.get('/staff-register', (req, res) => {
-  res.locals.options.register_type = 'Staff';
+// event-creator-register form
+router.get('/creator-register', (req, res) => {
+  res.locals.options.register_type = 'Event Creator';
   res.render('register', res.locals.options);
 });
 
@@ -42,13 +42,13 @@ const checkRegisterError = async (username, email) => {
 };
 
 // handle form submission for student
-router.post('/student-register', async (req, res, next) => {
+router.post('/seeker-register', async (req, res, next) => {
   const { username, email, password } = req.body;
-  const userType = 'student';
+  const userType = 'Event Seeker';
   const err = await checkRegisterError(username, email);
   if (err) {
     return res.status(err.status).render('error_views/auth-error',
-      { error: err.message, link: '/student-register' });
+      { error: err.message, link: '/seeker-register' });
   }
   User.create({
     username, email, password, userType
@@ -62,14 +62,14 @@ router.post('/student-register', async (req, res, next) => {
     });
 });
 
-// handle form submission for staff
-router.post('/staff-register', async (req, res, next) => {
+// handle form submission for event-creator
+router.post('/creator-register', async (req, res, next) => {
   const { username, email, password } = req.body;
-  const userType = 'staff';
+  const userType = 'event-creator';
   const err = await checkRegisterError(username, email);
   if (err) {
     return res.status(err.status).render('error_views/auth-error',
-      { error: err.message, link: '/staff-register' });
+      { error: err.message, link: '/creator-register' });
   }
   User.create({
     username, email, password, userType

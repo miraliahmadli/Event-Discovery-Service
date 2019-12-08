@@ -1,11 +1,11 @@
 import express from 'express';
 import Event from '../../models/event';
 import User from '../../models/user';
-import { isStaff } from '../common/authCheck';
+import { isCreator } from '../common/authCheck';
 
 const router = express.Router();
 
-router.delete('/id/:eventID', isStaff, (req, res) => {
+router.delete('/id/:eventID', isCreator, (req, res) => {
   Event.findOneAndRemove({ eventId: req.params.eventID }).then(result => {
     if (!result) {
       return res.send({

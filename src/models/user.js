@@ -21,9 +21,10 @@ const userSchema = new Schema({
   },
   userType: {
     type: String,
-    enum: ['student', 'staff'],
+    enum: ['event-seeker', 'event-creator'],
   },
   eventsBooked: [Number],
+  fav_tags: [String],
   history: [
     {
       action: String,

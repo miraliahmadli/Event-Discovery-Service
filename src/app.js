@@ -24,7 +24,7 @@ app.use(minify({
 
 }));
 // connect to database 
-mongoose.connect(process.env.DB_URI, {useNewUrlParser: true});
+mongoose.connect(process.env.DB_URI || "mongodb+srv://Mirali:Mirali1@34@cluster0-nihkx.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.on('open', () => console.log('Connection to database established'));
@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET || "Mirali",
   resave: true,
   saveUninitialized: false,
   store: new MongoStore({

@@ -38,6 +38,12 @@ const eventSchema = new Schema({
     type: Number,
     default: 0
   },
+  tags: {
+    type:  [String],
+    default: []
+  },
+  lng: Number,
+  lat: Number,
   promoCode: String,
   discount: Number,
   price: Number

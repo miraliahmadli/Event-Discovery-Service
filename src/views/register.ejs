@@ -28,7 +28,7 @@
 								<%= register_type %> Registration
 							</header>
 							<% register_type = register_type[0].toLowerCase() + register_type.slice(1) %>
-								<form method="POST" action="/<%= register_type %>-register">
+								<form method="POST" action="/<%= register_type.slice(6).toLowerCase() %>-register">
 									<div class="form-group">
 										<label for="username" class="sr-only">Username</label>
 										<input type="text" class="form-control" id="username" name="username" placeholder="Username" required>

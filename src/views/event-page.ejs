@@ -16,7 +16,7 @@
         <header class="title mb-0">
           <%= event.eventName %>
         </header>
-				<% if (type === 'staff') { %>
+				<% if (type === 'event-creator') { %>
 					<a href="/event/update/id/<%= event.eventId %>" class="btn btn-sm btn-secondary ml-3">Edit</a>
 					<button class="toggle btn btn-sm btn-danger ml-2" data-toggle="modal" data-target="#deleteModal" data-href="/event/delete/id/<%= event.eventId %>">Delete</button>
 				<% } %>
@@ -94,7 +94,7 @@
               <% } %>
             </div>
 
-            <% if (type === 'staff') { %>
+            <% if (type === 'event-creator') { %>
             <div class="col-12 col-md-4">
               <div class="card mt-3">
                 <h5 class="card-header">Other Information</h5>

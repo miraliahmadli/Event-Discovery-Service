@@ -1,17 +1,17 @@
 import express from 'express';
 import Event from '../../models/event';
 import User from '../../models/user';
-import { isStaff } from '../common/authCheck';
+import { isCreator } from '../common/authCheck';
 
 const router = express.Router();
 
-router.get('/', isStaff, (req, res) => {
+router.get('/', isCreator, (req, res) => {
   res.locals.options.page = 'create';
   res.render('create', res.locals.options);
 });
 
-router.post('/', isStaff, (req, res) => {
-  let { eventName, summary, address, startDate, endDate, fullDesc, capacity, promoCode, discount, price } = req.body;
+router.post('/', isCreator, (req, res) => {
+  let { eventName, summary, address, startDate, endDate, fullDesc, capacity, tags, promoCode, discount, price } = req.body;
   startDate = new Date(startDate);
   endDate = new Date(endDate);
 
@@ -23,6 +23,7 @@ router.post('/', isStaff, (req, res) => {
     endDate,
     fullDesc,
     capacity,
+    tags,
     promoCode,
     discount,
     price,

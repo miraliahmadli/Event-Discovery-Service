@@ -15,7 +15,7 @@
           ">
             <a class="nav-link" href="/">Home</a>
           </li>
-          <% if (type === "staff") { %>
+          <% if (type === "event-creator") { %>
             <li class="nav-item
             <% if (page === 'create') { %>
             active
@@ -30,16 +30,16 @@
           ">
               <a class="nav-link" href="/manage-events">Manage events</a>
             </li>
-            <% } %>
+          <% } %>
               <% if (type) { %>
                 <li class="nav-item 
-            <% if (page === 'booked-events') { %>
-            active
-            <% } %>
-          ">
+                  <% if (page === 'booked-events') { %>
+                  active
+                  <% } %>
+                ">
                   <a class="nav-link" href="/booked-events">Booked events</a>
                 </li>
-                <% } %>
+              <% } %>
         </ul>
 
         <!-- Search bar -->
