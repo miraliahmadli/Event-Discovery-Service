@@ -50,6 +50,16 @@
 					</div>
 
 					<div class="form-group">
+						<label for="location">Location</label>
+						<!-- <input type="text" class="form-control" id="location" required> -->
+						<button id="location" onclick="showLocation()">Choose Event Location</button>
+						<div id="map"></div>
+						<div class="invalid-feedback">
+							Event Location is required.
+						</div>
+					</div>
+
+					<div class="form-group">
 						<label for="date">Date</label>
 						<input class="form-control" id="date" placeholder="Event date" required>
 						<div class="invalid-feedback">
@@ -141,6 +151,54 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 
 	<%- include partials/html-scripts %>
+
+		<script>
+			function initMap(){
+			// Map options
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function(position){
+							
+						// Map options
+						var options = {
+						zoom:8,
+						center:new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+						}
+
+						// New map
+						var map = new google.maps.Map(document.getElementById('map'), options);
+
+						// Listen for click on map
+						google.maps.event.addListener(map, 'click', function(event){
+							// Add marker
+						//closure for the map
+						var that=this;
+						//only create a single marker
+						if(!this.marker){
+							var input = document.getElementById("address");
+							this.marker = new google.maps.Marker({draggable:true,title:input.value});
+							google.maps.event.addListener(this.marker,'dblclick',function(){
+								this.setMap(null);
+							});
+							//update title
+							google.maps.event.addDomListener(input,
+							              'change',
+							              function(){ 
+							                that.marker.setTitle(this.value);
+							              });
+						}
+						//update position
+						this.marker.setOptions({map      : this,
+						                      position : event.latLng
+						                     });						
+						});
+
+					});
+				}
+			}
+		</script>
+
+		<script src="https://maps.googleapis.com/maps/api/js?key=APIKEY&callback=initMap" async defer></script>
+
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/picker.js" integrity="sha256-A1y8n02GW5dvJFkEOX7UCbzJoko8kqgWUquWf9TWFS8="
 		 crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/picker.time.js" integrity="sha256-vFMKre5X5oQN63N+oJU9cJzn22opMuJ+G9FWChlH5n8="
