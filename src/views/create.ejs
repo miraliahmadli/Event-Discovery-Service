@@ -42,6 +42,22 @@
 					</div>
 
 					<div class="form-group">
+						<label for="eventTag">Event Tag</label>
+			                <select name="eventTag" class="eventTag" id="tag" required>
+			                    <option id="eventTag" value="music">Music Performance</option>
+			                    <option id="eventTag" value="dance">Dance Performance</option>
+			                    <option id="eventTag" value="art">Art exhibition </option>
+			                    <option id="eventTag" value="standup">Stand up comedy</option>
+			                    <option id="eventTag" value="seminar">Seminar</option>
+			                    <option id="eventTag" value="lecture">Special Lecture</option>
+			                    <option id="eventTag" value="talent">Talent Show</option>
+			                </select>
+			            <div class="invalid-feedback">
+							Event Tag is required.
+						</div>
+					</div>
+
+					<div class="form-group">
 						<label for="address">Address</label>
 						<input type="text" class="form-control" id="address" placeholder="Address" required>
 						<div class="invalid-feedback">
@@ -53,7 +69,7 @@
 						<label for="location">Location</label>
 						<!-- <input type="text" class="form-control" id="location" required> -->
 						<button id="location" onclick="showLocation()">Choose Event Location</button>
-						<div id="map"></div>
+						<div id="map" name="location"></div>
 						<div class="invalid-feedback">
 							Event Location is required.
 						</div>
@@ -160,7 +176,7 @@
 							
 						// Map options
 						var options = {
-						zoom:8,
+						zoom:16,
 						center:new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
 						}
 
@@ -175,6 +191,7 @@
 						//only create a single marker
 						if(!this.marker){
 							var input = document.getElementById("address");
+
 							this.marker = new google.maps.Marker({draggable:true,title:input.value});
 							google.maps.event.addListener(this.marker,'dblclick',function(){
 								this.setMap(null);
@@ -189,7 +206,8 @@
 						//update position
 						this.marker.setOptions({map      : this,
 						                      position : event.latLng
-						                     });						
+						                     });
+						event.latLng					
 						});
 
 					});

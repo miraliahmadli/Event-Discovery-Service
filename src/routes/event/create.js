@@ -11,10 +11,10 @@ router.get('/', isCreator, (req, res) => {
 });
 
 router.post('/', isCreator, (req, res) => {
-  let { eventName, summary, address, startDate, endDate, fullDesc, capacity, tags, promoCode, discount, price } = req.body;
+  console.log(req.body)
+  let { eventName, summary, eventTag, address, startDate, endDate, fullDesc, capacity, lng, lat, promoCode, discount, price } = req.body;
   startDate = new Date(startDate);
   endDate = new Date(endDate);
-
   Event.create({
     eventName,
     summary,
@@ -23,7 +23,7 @@ router.post('/', isCreator, (req, res) => {
     endDate,
     fullDesc,
     capacity,
-    tags,
+    eventTag,
     promoCode,
     discount,
     price,

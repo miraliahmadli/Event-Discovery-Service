@@ -14,6 +14,10 @@ const eventSchema = new Schema({
     type: String,
     required: true
   },
+  tags: {
+    type:  String,
+    required: true
+  },
   address: {
     type: String,
     required: true
@@ -37,10 +41,6 @@ const eventSchema = new Schema({
   currentBookings: {
     type: Number,
     default: 0
-  },
-  tags: {
-    type:  [String],
-    default: []
   },
   lng: Number,
   lat: Number,
