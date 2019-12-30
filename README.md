@@ -1,4 +1,4 @@
-# Event Management System
+# Event Discovery Service
  
 - Event management: System users can view the list of events, make a booking, and modify or cancel an existing event.  
 - User management: System users can view their profile and activity log (history). Users can also update their personal details such as email and password.
